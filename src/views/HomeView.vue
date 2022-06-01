@@ -1,15 +1,19 @@
 <template>
   <div class="home">
+    <h1>{{ counterData.title }}:</h1>
     <div>
       <button @click="changeCounter('-')" class="btn">-</button>
-      <span class="counter">{{ counter }}</span>
+      <span class="counter">{{ counterData.count }}</span>
       <button @click="changeCounter('+')" class="btn">+</button>
+    </div>
+    <div class="edit">
+      <h4>Edit counter title:</h4>
+      <input v-model="counterData.title" type="text" />
     </div>
   </div>
 </template>
 
-<!--
-OPTIONS API
+<!--OPTIONS API
 <script>
 export default {
   data() {
@@ -49,12 +53,20 @@ export default {
 
 <!--COMPOSITION API - <script setup> -->
 <script setup>
-import { ref } from "vue";
+import { reactive } from "vue";
+// import { ref } from "vue";
 
-const counter = ref(0);
+// const counter = ref(0);
+// const counterTitle = ref("My Counter");
+
+const counterData = reactive({
+  count: 0,
+  title: "My Counter",
+});
 
 const changeCounter = (sign) => {
-  counter.value = sign === "+" ? counter.value + 1 : counter.value - 1;
+  counterData.count =
+    sign === "+" ? counterData.count + 1 : counterData.count - 1;
 };
 </script>
 
@@ -68,5 +80,9 @@ const changeCounter = (sign) => {
 .counter {
   font-size: 40px;
   margin: 10px;
+}
+
+.edit {
+  margin-top: 40px;
 }
 </style>
