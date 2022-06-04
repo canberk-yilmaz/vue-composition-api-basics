@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-
 </script>
 
 <template>
@@ -8,7 +7,17 @@ import { RouterLink, RouterView } from "vue-router";
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/about">About</RouterLink>
   </nav>
+
   <RouterView />
+
+  <!-- If we want to use onActivated and onDeactivated hooks we need to wrap our router view with keep alive
+in vue3 for router we need to use slots for this problem like below.-->
+
+  <!-- <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view> -->
 </template>
 
 <style>
