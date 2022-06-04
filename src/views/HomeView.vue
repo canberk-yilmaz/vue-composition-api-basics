@@ -78,6 +78,10 @@ import { reactive, computed, watch, onMounted } from "vue";
 // const counterTitle = ref("My Counter");
 const appTitle = "Amazing Counter App";
 
+onMounted(() => {
+  console.log({ appTitle });
+});
+
 const counterData = reactive({
   count: 0,
   title: "My Counter",
@@ -99,6 +103,13 @@ watch(
 const oddOrEven = computed(() => {
   // return counterData.count % 2 === 0 ? "even" : "odd";
   return counterData.count % 2 === 0 ? "even" : "odd";
+});
+
+//we can use the same hook more than once
+//therefore we can keep the similar logic together
+
+onMounted(() => {
+  console.log("oddOrEvent", oddOrEven.value);
 });
 
 const changeCounter = (amount, event) => {
