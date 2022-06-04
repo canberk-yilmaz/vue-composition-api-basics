@@ -14,7 +14,7 @@
 
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input v-model="counterData.title" type="text" />
+      <input v-model="counterData.title" type="text" v-autofocus />
     </div>
   </div>
 </template>
@@ -42,6 +42,13 @@ export default {
   },
   unmounted() {
     console.log('unmounted')
+  },
+  directives: {
+    autofocus: {
+      mounted(el) {
+        el.focus()
+      }
+    }
   }
 }
 </script>
@@ -143,6 +150,16 @@ const changeCounter = (amount, event) => {
 // onDeactivated(() => {
 //   console.log("onDeactivated");
 // });
+
+/*
+  directives
+*/
+
+const vAutofocus = {
+  mounted: (el) => {
+    el.focus();
+  },
+};
 </script>
 
 <style scoped>
