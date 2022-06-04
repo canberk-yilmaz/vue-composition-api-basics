@@ -1,11 +1,17 @@
 <template>
   <div class="home">
-    <h1>{{ counterData.title }}:</h1>
+    <h1>{{ appTitle }}</h1>
+    <h3>{{ counterData.title }}:</h3>
     <div>
-      <button @click="changeCounter('-')" class="btn">-</button>
+      <button @click="changeCounter(-2)" class="btn">--</button>
+      <button @click="changeCounter(-1)" class="btn">-</button>
       <span class="counter">{{ counterData.count }}</span>
-      <button @click="changeCounter('+')" class="btn">+</button>
+      <button @click="changeCounter(1, $event)" class="btn">+</button>
+      <button @click="changeCounter(2, $event)" class="btn">++</button>
     </div>
+
+    <p>This counter is {{ oddOrEven }}</p>
+
     <div class="edit">
       <h4>Edit counter title:</h4>
       <input v-model="counterData.title" type="text" />
@@ -24,6 +30,11 @@ export default {
   methods: {
     changeCounter(sign) {
       this.counter = sign === '+' ? this.counter + 1 : this.counter - 1
+    }
+  },
+  watch: {
+    counter(newCount, oldCount) {
+      if (newCount !== oldCount) alert ('Counter changed from ' + oldCount + ' to ' + newCount)) 
     }
   }
 }
@@ -52,21 +63,37 @@ export default {
  -->
 
 <!--COMPOSITION API - <script setup> -->
+
 <script setup>
-import { reactive } from "vue";
+import { reactive, computed, watch } from "vue";
 // import { ref } from "vue";
 
 // const counter = ref(0);
 // const counterTitle = ref("My Counter");
+const appTitle = "Amazing Counter App";
 
 const counterData = reactive({
   count: 0,
   title: "My Counter",
 });
 
-const changeCounter = (sign) => {
-  counterData.count =
-    sign === "+" ? counterData.count + 1 : counterData.count - 1;
+watch(() => counterData.count, (newCount, oldCount) => {
+  if (newCount !== oldCount) console.log('Counter changed from ' + oldCount + ' to ' + newCount);
+});
+
+// if we were using the data that declared with ref instead of reactive, we would have to use the following:
+// const canberk = ref('Cool Name') 
+// we could have use the watch like this
+// watch(canberk, (newValue, oldValue) => {})
+
+const oddOrEven = computed(() => {
+  // return counterData.count % 2 === 0 ? "even" : "odd";
+  return counterData.count % 2 === 0 ? "even" : "odd";
+});
+
+const changeCounter = (amount, event) => {
+  console.log(event);
+  counterData.count += amount;
 };
 </script>
 
