@@ -36,6 +36,12 @@ export default {
     counter(newCount, oldCount) {
       if (newCount !== oldCount) alert ('Counter changed from ' + oldCount + ' to ' + newCount)) 
     }
+  },
+  mounted() {
+    console.log('mounted')
+  },
+  unmounted() {
+    console.log('unmounted')
   }
 }
 </script>
@@ -65,7 +71,7 @@ export default {
 <!--COMPOSITION API - <script setup> -->
 
 <script setup>
-import { reactive, computed, watch } from "vue";
+import { reactive, computed, watch, onMounted } from "vue";
 // import { ref } from "vue";
 
 // const counter = ref(0);
@@ -77,12 +83,16 @@ const counterData = reactive({
   title: "My Counter",
 });
 
-watch(() => counterData.count, (newCount, oldCount) => {
-  if (newCount !== oldCount) console.log('Counter changed from ' + oldCount + ' to ' + newCount);
-});
+watch(
+  () => counterData.count,
+  (newCount, oldCount) => {
+    if (newCount !== oldCount)
+      console.log("Counter changed from " + oldCount + " to " + newCount);
+  }
+);
 
 // if we were using the data that declared with ref instead of reactive, we would have to use the following:
-// const canberk = ref('Cool Name') 
+// const canberk = ref('Cool Name')
 // we could have use the watch like this
 // watch(canberk, (newValue, oldValue) => {})
 
@@ -95,6 +105,33 @@ const changeCounter = (amount, event) => {
   console.log(event);
   counterData.count += amount;
 };
+
+// list vue3 lifecycle hooks as an empty
+// write them all in next section
+// onBeforeMount(() => {
+//   console.log("onBeforeMount");
+// });
+// onBeforeUpdate(() => {
+//   console.log("onBeforeUpdate");
+// });
+// onMounted(() => {
+//   console.log("onMounted");
+// });
+// onUpdated(() => {
+//   console.log("onUpdated");
+// });
+// onBeforeUnmount(() => {
+//   console.log("onBeforeUnmount");
+// });
+// onUnmounted(() => {
+//   console.log("onUnmounted");
+// });
+// onActivated(() => {
+//   console.log("onActivated");
+// });
+// onDeactivated(() => {
+//   console.log("onDeactivated");
+// });
 </script>
 
 <style scoped>
