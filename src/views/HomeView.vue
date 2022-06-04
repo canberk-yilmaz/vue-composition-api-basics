@@ -79,6 +79,7 @@ export default {
 
 <script setup>
 import { reactive, computed, watch, onMounted } from "vue";
+import { vAutofocus } from "@/directives/vAutofocus";
 // import { ref } from "vue";
 
 // const counter = ref(0);
@@ -150,16 +151,6 @@ const changeCounter = (amount, event) => {
 // onDeactivated(() => {
 //   console.log("onDeactivated");
 // });
-
-/*
-  directives
-*/
-
-const vAutofocus = {
-  mounted: (el) => {
-    el.focus();
-  },
-};
 </script>
 
 <style scoped>
