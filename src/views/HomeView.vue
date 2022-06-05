@@ -78,7 +78,7 @@ export default {
 <!--COMPOSITION API - <script setup> -->
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted } from "vue";
+import { ref, reactive, computed, watch, onMounted, nextTick } from "vue";
 import { vAutofocus } from "@/directives/vAutofocus";
 // import { ref } from "vue";
 
@@ -122,13 +122,21 @@ const oddOrEven = computed(() => {
 // we can use template refs after onmounted hook or other hooks
 onMounted(() => {
   console.log("oddOrEvent", oddOrEven.value);
-  
 });
-
+// we can use $nextick to run code after the DOM is updated
 const changeCounter = (amount, event) => {
   console.log(event);
   counterData.count += amount;
+  nextTick(() => {
+    console.log("counter updated");
+  });
 };
+// const changeCounter = async (amount, event) => {
+//   console.log(event);
+//   counterData.count += amount;
+//   await nextTick();
+//   console.log("counter updated");
+// };
 
 // list vue3 lifecycle hooks as an empty
 // write them all in next section
