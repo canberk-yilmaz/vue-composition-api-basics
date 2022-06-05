@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ appTitle }}</h1>
+    <h1 ref="appTitleRef">{{ appTitle }}</h1>
     <h3>{{ counterData.title }}:</h3>
     <div>
       <button @click="changeCounter(-2)" class="btn">--</button>
@@ -78,7 +78,7 @@ export default {
 <!--COMPOSITION API - <script setup> -->
 
 <script setup>
-import { reactive, computed, watch, onMounted } from "vue";
+import { ref, reactive, computed, watch, onMounted } from "vue";
 import { vAutofocus } from "@/directives/vAutofocus";
 // import { ref } from "vue";
 
@@ -86,8 +86,11 @@ import { vAutofocus } from "@/directives/vAutofocus";
 // const counterTitle = ref("My Counter");
 const appTitle = "Amazing Counter App";
 
+const appTitleRef = ref(null);
+
 onMounted(() => {
   console.log({ appTitle });
+  console.log(appTitleRef.value.offsetWidth);
 });
 
 const counterData = reactive({
@@ -116,8 +119,10 @@ const oddOrEven = computed(() => {
 //we can use the same hook more than once
 //therefore we can keep the similar logic together
 
+// we can use template refs after onmounted hook or other hooks
 onMounted(() => {
   console.log("oddOrEvent", oddOrEven.value);
+  
 });
 
 const changeCounter = (amount, event) => {
