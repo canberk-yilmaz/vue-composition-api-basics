@@ -1,17 +1,22 @@
 <template>
   <teleport to=".modals-container">
     <div class="modal">
-      <h1>This is a modal</h1>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis
-        molestias fugiat eaque quis possimus esse deleniti praesentium. Vel ad
-        illo tenetur corporis a culpa inventore quasi quisquam, debitis modi
-        eum?
-      </p>
+      <h1><slot name="title" /></h1>
+      <slot />
+      <!-- <pre>{{ $slots.title() }}</pre> -->
       <button>Hide modal</button>
     </div>
   </teleport>
 </template>
+
+<script setup>
+
+// To use the slot data in the script section we need to use the useSlots hook like below.
+// import { useSlots } from "vue";
+// const slots = useSlots();
+// console.log(slots.title());
+
+</script>
 
 <style scoped>
 .modal {
