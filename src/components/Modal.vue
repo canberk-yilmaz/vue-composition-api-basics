@@ -6,6 +6,7 @@
       <slot />
       <!-- <pre>{{ $slots.title() }}</pre> -->
       <button @click="$emit('update:modelValue', false)">Hide modal</button>
+      <div>username: {{ userData.username }}</div>
     </div>
   </teleport>
 </template>
@@ -29,6 +30,8 @@ export default {
 // const slots = useSlots();
 // console.log(slots.title());
 
+import { inject } from "vue";
+
 //props
 
 const props = defineProps({
@@ -44,6 +47,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
+const userData = inject("userData");
 // const handleButtonClick = () => {
 //   emit("update:modelValue", false);
 // };
