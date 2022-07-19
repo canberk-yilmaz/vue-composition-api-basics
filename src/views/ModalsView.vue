@@ -8,7 +8,11 @@
       </label>
     </div>
     <button @click="showModal = true">Show modals</button>
-    <component :is="showDarkModals ? ModalDark : Modal" v-model="showModal" title="Title with prop">
+    <component
+      :is="showDarkModals ? ModalDark : Modal"
+      v-model="showModal"
+      title="Title with prop"
+    >
       <template #title>This is a modal.</template>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis
