@@ -1,8 +1,8 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-</script>
+<!-- <script setup>
+</script> -->
 
 <template>
+  <div class="user-data">{{ userData.name }} @{{ userData.username }}</div>
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
@@ -20,7 +20,19 @@ in vue3 for router we need to use slots for this problem like below.-->
     </keep-alive>
   </router-view> -->
 </template>
+<script setup>
+//imports
+// import { RouterLink, RouterView } from "vue-router";
+import { reactive, provide } from "vue";
+//user data
 
+const userData = reactive({
+  name: "Canberk",
+  username: "canberkyilmaz",
+});
+
+provide("userData", userData);
+</script>
 <style>
 @import "@/assets/base.css";
 
@@ -78,5 +90,13 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+.user-data {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: bisque;
+  font-size: 0.75rem;
 }
 </style>
