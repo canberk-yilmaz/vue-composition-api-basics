@@ -5,16 +5,30 @@
 
     <ul>
       <li v-for="post in posts" :key="post.id">
-        <RouterLink :to="`/postDetails/${post.id}`">{{ post.title }}</RouterLink>
+        <RouterLink :to="`/postDetails/${post.id}`">{{
+          post.title
+        }}</RouterLink>
       </li>
     </ul>
   </div>
+
+  <button
+    class="counter-button"
+    @click="changeCounter(1, $event)"
+    :class="{ red: oddOrEven === 'odd' }"
+  >
+    <span class="counter">{{ counterData.count }}</span>
+    <!-- <button class="btn">+</button> -->
+  </button>
 </template>
 
 <script setup>
 // imports
 import { ref } from "vue";
 import { vAutofocus } from "../directives/vAutofocus";
+import { useCounter } from "@/use/useCounter";
+
+const { counterData, changeCounter, oddOrEven } = useCounter();
 
 //posts
 
@@ -36,3 +50,14 @@ const posts = ref([
   },
 ]);
 </script>
+
+<style scoped>
+.counter-button {
+  margin-top: 20px;
+  font-size: 60px;
+  background-color: beige;
+}
+.counter-button.red {
+  background-color: red;
+}
+</style>
