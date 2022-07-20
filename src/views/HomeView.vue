@@ -78,7 +78,8 @@ export default {
 <!--COMPOSITION API - <script setup> -->
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted, nextTick } from "vue";
+import { ref, onMounted } from "vue";
+import { useCounter } from "@/use/useCounter";
 import { vAutofocus } from "@/directives/vAutofocus";
 // import { ref } from "vue";
 
@@ -93,44 +94,46 @@ onMounted(() => {
   console.log(appTitleRef.value.offsetWidth);
 });
 
-const counterData = reactive({
-  count: 0,
-  title: "My Counter",
-});
+const { counterData, oddOrEven, changeCounter } = useCounter();
 
-watch(
-  () => counterData.count,
-  (newCount, oldCount) => {
-    if (newCount !== oldCount)
-      console.log("Counter changed from " + oldCount + " to " + newCount);
-  }
-);
+// const counterData = reactive({
+//   count: 0,
+//   title: "My Counter",
+// });
 
-// if we were using the data that declared with ref instead of reactive, we would have to use the following:
-// const canberk = ref('Cool Name')
-// we could have use the watch like this
-// watch(canberk, (newValue, oldValue) => {})
+// watch(
+//   () => counterData.count,
+//   (newCount, oldCount) => {
+//     if (newCount !== oldCount)
+//       console.log("Counter changed from " + oldCount + " to " + newCount);
+//   }
+// );
 
-const oddOrEven = computed(() => {
-  // return counterData.count % 2 === 0 ? "even" : "odd";
-  return counterData.count % 2 === 0 ? "even" : "odd";
-});
+// // if we were using the data that declared with ref instead of reactive, we would have to use the following:
+// // const canberk = ref('Cool Name')
+// // we could have use the watch like this
+// // watch(canberk, (newValue, oldValue) => {})
 
-//we can use the same hook more than once
-//therefore we can keep the similar logic together
+// const oddOrEven = computed(() => {
+//   // return counterData.count % 2 === 0 ? "even" : "odd";
+//   return counterData.count % 2 === 0 ? "even" : "odd";
+// });
 
-// we can use template refs after onmounted hook or other hooks
-onMounted(() => {
-  console.log("oddOrEvent", oddOrEven.value);
-});
-// we can use $nextick to run code after the DOM is updated
-const changeCounter = (amount, event) => {
-  console.log(event);
-  counterData.count += amount;
-  nextTick(() => {
-    console.log("counter updated");
-  });
-};
+// //we can use the same hook more than once
+// //therefore we can keep the similar logic together
+
+// // we can use template refs after onmounted hook or other hooks
+// onMounted(() => {
+//   console.log("oddOrEvent", oddOrEven.value);
+// });
+// // we can use $nextick to run code after the DOM is updated
+// const changeCounter = (amount, event) => {
+//   console.log(event);
+//   counterData.count += amount;
+//   nextTick(() => {
+//     console.log("counter updated");
+//   });
+// };
 // const changeCounter = async (amount, event) => {
 //   console.log(event);
 //   counterData.count += amount;
