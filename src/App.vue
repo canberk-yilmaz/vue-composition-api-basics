@@ -2,7 +2,12 @@
 </script> -->
 
 <template>
-  <div class="user-data">{{ userData.name }} @{{ userData.username }}</div>
+  <div class="user-data">
+    {{ userData.name }} @{{ userData.username }} | Network Status:
+    <span :style="{ color: online ? 'green' : 'red' }">
+      {{ online ? "Online" : "Offline" }}</span
+    >
+  </div>
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
@@ -24,12 +29,16 @@ in vue3 for router we need to use slots for this problem like below.-->
 //imports
 // import { RouterLink, RouterView } from "vue-router";
 import { reactive, provide } from "vue";
+import { useOnline } from "@vueuse/core";
+
 //user data
 
 const userData = reactive({
   name: "Canberk",
   username: "canberkyilmaz",
 });
+
+const online = useOnline();
 
 provide("userData", userData);
 </script>
