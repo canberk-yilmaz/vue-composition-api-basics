@@ -1,20 +1,20 @@
 <template>
   <div class="home">
     <h1 ref="appTitleRef">{{ appTitle }}</h1>
-    <h3>{{ counterData.title }}:</h3>
+    <h3>{{ counter.title }}</h3>
     <div>
-      <button @click="changeCounter(-2)" class="btn">--</button>
-      <button @click="changeCounter(-1)" class="btn">-</button>
-      <span class="counter">{{ counterData.count }}</span>
-      <button @click="changeCounter(1, $event)" class="btn">+</button>
-      <button @click="changeCounter(2, $event)" class="btn">++</button>
+      <button @click="counter.decrease(2)" class="btn">--</button>
+      <button @click="counter.decrease(1)" class="btn">-</button>
+      <span class="counter">{{ counter.count }}</span>
+      <button @click="counter.increase(1)" class="btn">+</button>
+      <button @click="counter.increase(2)" class="btn">++</button>
     </div>
 
-    <p>This counter is {{ oddOrEven }}</p>
+    <p>This counter is {{ counter.oddOrEven }}</p>
 
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input v-model="counterData.title" type="text" v-autofocus />
+      <input v-model="counter.title" type="text" v-autofocus />
     </div>
   </div>
 </template>
@@ -79,9 +79,10 @@ export default {
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useCounter } from "@/use/useCounter";
+// import { useCounter } from "@/use/useCounter";
 import { vAutofocus } from "@/directives/vAutofocus";
 // import { ref } from "vue";
+import { useCounterStore } from "@/stores/counter";
 
 // const counter = ref(0);
 // const counterTitle = ref("My Counter");
@@ -94,7 +95,9 @@ onMounted(() => {
   console.log(appTitleRef.value.offsetWidth);
 });
 
-const { counterData, oddOrEven, changeCounter } = useCounter();
+const counter = useCounterStore();
+
+// const { counterData, oddOrEven, changeCounter } = useCounter();
 
 // const counterData = reactive({
 //   count: 0,
